@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Producer_Consumer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:cornsilk;height:1500px">
+  
+
+  <div class="page-header" >
+    <h1 style="background-color:khaki;text-align:center;float:center;"><b>Producer Consumer</b> </h1>
+  </div>
+
+  <div>
+      <form>
+        <textarea id="doc" style="height:45%;width:20%;position:absolute;left:3%;font-size:17px; color :black; background-color:lavenderblush ;border:solid 2px black; " disabled="">
+while(1)
+  {
+      /* produce an item in next_produced */
+
+      while (counter==BUFFER_SIZE)
+        ; /* do nothing */
+
+      buffer[in] = next_produced;
+      in = (in + 1) % BUFFER_SIZE;
+      counter++;
+  }
+        </textarea>
+      </form>
+    </div>
+
+    <div>
+      <form>
+        <textarea id="doc" style="height:45%;width:20%;position:absolute;left:25%;font-size:17px;color : black; background-color:lavenderblush ;border:solid 2px black; " disabled="">
+ while(1)
+  {
+      while(counter == 0)
+        ; /* do nothing */
+
+      next_consumed = buffer[out];
+      out = (out+1) % BUFFER_SIZE;
+      counter--;
+
+      /* consume an item in next_consumed */
+  }
+        </textarea>
+      </form>
+    </div>
+
+
+
+
+
+ <button class="btn btn-primary" id ="prod", type ="button", onclick ="barrieradd()", style ="height:10%;width:15%;position:absolute;top:25%;left:50%;font-size:25px;border:solid 4px black;background-color:sandybrown">Toss Coin</button>
+
+<button class="btn btn-primary" id ="prod1", type ="button", style ="height:10%;width:12%;position:absolute;top:74%;left:6%;font-size:25px;background-color:white;color:black;border:solid 4px black;" disabled="">Producer</button>
+
+ <button class="btn btn-primary" id ="con", type ="button", style ="height:10%;width:12%;position:absolute;top:74%;left:28%;font-size:25px;background-color:white;color:black;border:solid 4px black;" disabled="">Consumer</button>
+
+
+<button class="btn btn-warning" id ="count", type ="button" style ="height:80px;width:165px;border:solid 4px black;position:absolute;top:25%;right:10%;background-color:maroon;font-size:20px">Memory Blocks</button>
+
+<button class="btn btn-primary" type = "button", id ="num", name = "num", class = "btn btn-primary", style="background-color:silver;height:300px;width:300px;position:absolute;top:45%;left:48%;border:solid 4px black;font-size:50px;border-radius: 50%;">COIN </button>
+
+<button type = "button", id ="one", name = "one", style="height:80px;width:165px;position:absolute;border:solid 4px black;top:40%;right:10%;background-color:white"> </button>
+
+<button type = "button", id ="two", name = "two", style="height:80px;width:165px;border:solid 4px black;position:absolute;top:50%;right:10%;background-color:white"> </button>
+
+<button type = "button", id ="three", name = "three", style="height:80px;width:165px;border:solid 4px black;position:absolute;top:60%;right:10%;background-color:white"> </button>
+
+<button type = "button", id ="four", name = "four", style="height:80px;width:165px;border:solid 4px black;position:absolute;top:70%;right:10%;background-color:white"> </button>
+
+<button type = "button", id ="five", name = "five", style="height:80px;width:165px;border:solid 4px black;position:absolute;top:80%;right:10%;background-color:white"> </button>
+
+
+   </body>
+
+
+<script type="text/javascript">
+   var queue = [0,0,0,0,0]; var flag=0;
+      var rear =-1; var front =-1;
+
+    function check()
+      {
+        if(flag>0)
+        {
+          document.getElementById("con").disabled = false;
+        }
+        if(flag<5)
+        {
+          document.getElementById("prod1").disabled = false;
+        }
+      }
+
+       function color()
+      {
+        if(queue[0]==1)
+        {
+          document.getElementById("one").style.backgroundColor = 'gold';
+        }
+        if(queue[1]==1)
+        {
+          document.getElementById("two").style.backgroundColor = 'gold';
+        }
+        if(queue[2]==1)
+        {
+          document.getElementById("three").style.backgroundColor = 'gold';
+        }
+        if(queue[3]==1)
+        {
+          document.getElementById("four").style.backgroundColor = 'gold';
+        }
+        if(queue[4]==1)
+        {
+          document.getElementById("five").style.backgroundColor = 'gold';
+        }
+
+
+        if(queue[0]==0)
+        {
+          document.getElementById("one").style.backgroundColor = 'white';
+        }
+        if(queue[1]==0)
+        {
+          document.getElementById("two").style.backgroundColor = 'white';
+        }
+        if(queue[2]==0)
+        {
+          document.getElementById("three").style.backgroundColor = 'white';
+        }
+        if(queue[3]==0)
+        {
+          document.getElementById("four").style.backgroundColor = 'white';
+        }
+        if(queue[4]==0)
+        {
+          document.getElementById("five").style.backgroundColor = 'white';
+        }
+
+        check();
+      }
+
+
+ function produce()
+      {
+        flag++;
+          if(flag==5)
+          {
+            document.getElementById("prod1").disabled = true;
+          }
+         // document.getElementById("prod1").style.color=green;
+          if(front == -1 && rear ==-1)
+          {
+            front =0;
+            rear =0;
+            queue[rear] =1;
+          }
+          else
+          {
+              rear = (rear+1)%5;
+              queue[rear]=1;
+          }
+
+        color();
+      }
+
+
+        function consume()
+      {
+        //   myMove();
+        flag--;
+        if(flag==0)
+        {
+          document.getElementById("con").disabled = true;
+        }
+
+        if(front==rear)
+        {
+          queue[front] =0;
+          front =-1;
+          rear =-1;
+        }
+        else
+        {
+          queue[front]=0;
+          front = (front+1)%5;
+        }
+        color();
+      }
+   function barrieradd()
+      {
+          console.log(num)
+             var n = Math.random();
+              num = Math.floor(n*2);
+
+              if(flag==0 && num==1)
+              {
+                                    document.getElementById("con").style.backgroundColor='yellow';
+                                    document.getElementById("num").innerHTML = "Consumer";
+                                    alert("Buffer Empty!");
+              }
+
+            else if(flag==5 && num==0)
+              {
+                    document.getElementById("prod1").style.backgroundColor='yellow';
+                                    document.getElementById("num").innerHTML = "Producer";
+                    alert("Buffer Full!");
+              }
+           else if(num==0)
+                  {
+
+                    document.getElementById("prod1").style.backgroundColor='yellow';
+           document.getElementById("con").style.backgroundColor='white';
+
+                    document.getElementById("num").innerHTML = "Producer";
+              produce();
+            }
+           else if (num==1)
+           {
+          document.getElementById("con").style.backgroundColor='yellow';
+                document.getElementById("prod1").style.backgroundColor='white';
+
+
+                    document.getElementById("num").innerHTML = "Consumer";
+                consume();
+           }
+
+
+      }
+
+
+
+
+</script>
+
+   </html>

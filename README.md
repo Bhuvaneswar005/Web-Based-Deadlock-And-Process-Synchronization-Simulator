@@ -2,7 +2,7 @@
 A Web Application that simulates various functionalities of an Operating System. 
 It is built using HTML, CSS, JavaScript.
 The Web Application will simulate the following functionalities:
-Process Synchronization
-Deadlock
+1)Process Synchronization
+2)Deadlock              
 
 
